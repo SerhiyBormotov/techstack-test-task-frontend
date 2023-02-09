@@ -1,0 +1,29 @@
+.app{
+  &__container{
+    position: relative;
+    width:100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 5px;
+    min-height: 100vh;
+  }
+  &__grid{
+    position: relative;
+    padding: 0;
+    @media all and (min-width: 800px) {
+        padding-right: 310px;
+    }
+  }
+  &__aside{
+    margin-bottom: 10px;        
+    @media all and (min-width: 800px) {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 300px;
+    }
+  }
+  &__main{
+    padding: 0 10px;
+  }
+}

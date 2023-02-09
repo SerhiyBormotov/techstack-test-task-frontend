@@ -1,0 +1,46 @@
+@import '../../variables.scss';
+.apartment-add-form{
+    padding: 20px ;
+    background-color: $light;
+    @include shadow;
+    &__title{
+        font-weight: bold;
+        font-size: 1.5em;
+        margin-bottom: 10px;
+        text-align: center;
+        color:$dark;
+    }
+    &__label{
+        display:block;
+        margin-top: 20px;
+        margin-bottom: 5px;
+        font-size: 16px;
+    }
+    &__input{
+        display:block;
+        padding: 10px;
+        width: 100%;
+        font-size: 16px;
+        font-family: $font;
+        border: 1px solid rgba($dark, .4);
+        border-radius: 4px;
+        transition: box-shadow .5s ease, outline-color .5s ease; 
+        outline-color:  transparent;        
+        &:focus{
+            box-shadow: inset 0px 0px 5px rgba($dark, .3);
+            outline:  $dark solid 1px;
+        }
+    }
+    &__textarea{
+        resize: vertical;
+    }
+    &__error{
+        color: $prime;
+        font-size: 12px;
+        margin-top: 5px;
+    }
+    &__button{
+        @include button($green);
+        margin: 20px auto 0;        
+    }
+}

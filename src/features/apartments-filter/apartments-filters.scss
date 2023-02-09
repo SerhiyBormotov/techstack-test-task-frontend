@@ -1,0 +1,41 @@
+@import '../../variables.scss';
+.apartments-filters{
+    display: flex;
+    justify-content: flex-end;
+    align-items:center;
+    gap: 20px;
+     &__label{
+         font-size: 14px;
+         color: rgba($dark, 1);
+         margin-right: 5px;
+         margin-bottom: 5px;
+ 
+     }
+     &__select{
+         position: relative;
+         display: inline-block;
+         border: 1px solid rgba($dark, .4);
+         border-radius: 4px;
+         transition: outline-color .5s ease; 
+         outline-color:  transparent;
+         background-color: transparent;
+         padding: 5px;
+         margin: 0;
+         font-family: inherit;
+         font-size: 14px;
+         cursor: pointer;
+         line-height: 1.1;
+         z-index: 1;
+         &:focus{
+             outline:  $dark solid 1px;
+         }
+         option {
+             white-space: normal;        
+             // Only affects Chrome
+             outline-color: $dark;
+         }          
+     }    
+ }
+ 
+   
+  
