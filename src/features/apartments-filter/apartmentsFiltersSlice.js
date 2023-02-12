@@ -98,14 +98,23 @@ const filterBy = (list, filters) => {
         );
 }
 
-export const filteredApartmentSelector = createSelector(
+export const filteredApartmentsSelector = createSelector(
     (state) => state.filters.filter,
     (state) => state.filters.sort,
-    (state) => state.apartments.apartments,
+    (state, list) => list,
     (filters, sort, apartments) => {        
         let res = sortBy(apartments, sort);
         res = filterBy(res, filters);
         return res;
     }
+)
 
+export const sortToStringSelector = createSelector(
+    (state) => state.filters.sort,
+    (sort) => Object.entries(sort)[0].join('/')
+)
+
+export const filterRoomsToStringSelector = createSelector(
+    (state) => state.filters.filter,
+    (filterArr) => filterArr.filter(item => item.rooms).rooms
 )

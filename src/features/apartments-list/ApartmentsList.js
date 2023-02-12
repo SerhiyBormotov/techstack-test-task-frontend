@@ -1,22 +1,29 @@
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector} from 'react-redux';
 import { useCallback, createRef, useRef } from 'react';
 import {CSSTransition, TransitionGroup } from 'react-transition-group';
 import ApartmentsListItem from './ApartmentsListItem';
-import { deleteApartment } from './apartmentsListSlice';
-import { filteredApartmentSelector } from '../apartments-filter/apartmentsFiltersSlice';
+import Spinner from '../spinner/Spinner';
+import Error from '../error/Error';
+import { filteredApartmentsSelector } from '../apartments-filter/apartmentsFiltersSlice';
+import { useGetAllApartmentsQuery, useDeleteOneApartmentMutation } from '../api/apiSlice';
 import './apartments-list.scss';
 
 const ApartmentsList = () => {
-    const dispatch = useDispatch();
-    const filteredItems = useSelector(filteredApartmentSelector);
-    const count = filteredItems.length;
+    const {
+        data: apartments = [],
+        isLoading,
+        isFetching,
+        isError
+    } = useGetAllApartmentsQuery();
+    const [deleteApartment] = useDeleteOneApartmentMutation();
+    const filteredItems = useSelector(state => filteredApartmentsSelector(state, apartments));
+    const count = filteredItems.length || "Loading...";
 
     const handleDelete = useCallback((id) => {
-        dispatch(deleteApartment(id));
-    }, [dispatch]);
+        deleteApartment(id).unwrap();
+    }, [deleteApartment]);
 
     let elemsRef = useRef([]);
-
     const renderItems = (arr) => {
         if (arr.length === 0) {
             return (
@@ -48,10 +55,11 @@ const ApartmentsList = () => {
     return(
         <div className="apartments-list">
             <div className="apartments-list__title">Available apartments ({count})</div>
-            {renderItems(filteredItems)}           
+            {filteredItems.length > 0 && renderItems(filteredItems)}
+            {(isLoading || isFetching) && <Spinner/>}
+            {isError && <Error/>}           
         </div> 
     )
 } 
-
 
 export default ApartmentsList;

@@ -1,7 +1,6 @@
-import { useDispatch } from 'react-redux';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { addApartment } from '../apartments-list/apartmentsListSlice';
+import { useAddOneApartmentMutation } from '../api/apiSlice';
 
 import './apartments-add-form.scss';
 
@@ -20,7 +19,8 @@ const CustomInputField = ({name, caption, ...props}) => {
 }
 
 const ApartmentsAddForm = () => {
-    const dispatch = useDispatch();
+    const [addApartment] = useAddOneApartmentMutation();
+
     return(
         <div className="apartment-add-form">
             <div className="apartment-add-form__title">Add new apartment</div>
@@ -45,7 +45,7 @@ const ApartmentsAddForm = () => {
                             .max(999, "Maximum 999 characters"),
                 })}
                 onSubmit = {(values, {resetForm}) => {
-                    dispatch(addApartment(values));
+                    addApartment(values);
                     resetForm();
                 }} >
                 <Form  className="apartment-add-form__form">
